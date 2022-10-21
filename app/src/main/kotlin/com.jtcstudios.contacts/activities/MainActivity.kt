@@ -80,7 +80,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         storeStateVariables()
         setupTabs()
         checkContactPermissions()
-        checkWhatsNewDialog()
     }
 
     private fun checkContactPermissions() {
@@ -191,8 +190,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 R.id.dialpad -> launchDialpad()
                 R.id.import_contacts -> tryImportContacts()
                 R.id.export_contacts -> tryExportContacts()
-                R.id.settings -> launchSettings()
-                R.id.about -> launchAbout()
                 else -> return@setOnMenuItemClickListener false
             }
             return@setOnMenuItemClickListener true
@@ -537,29 +534,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun launchSettings() {
-        closeSearch()
-        hideKeyboard()
-        startActivity(Intent(applicationContext, SettingsActivity::class.java))
-    }
-
-    private fun launchAbout() {
-        closeSearch()
-        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_INDICATOR_FAST_SCROLL or LICENSE_AUTOFITTEXTVIEW
-
-        val faqItems = arrayListOf(
-            FAQItem(R.string.faq_1_title, R.string.faq_1_text),
-            FAQItem(R.string.faq_9_title_commons, R.string.faq_9_text_commons)
-        )
-
-        if (!resources.getBoolean(R.bool.hide_google_relations)) {
-            faqItems.add(FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons))
-            faqItems.add(FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons))
-            faqItems.add(FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons))
-        }
-
-        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
-    }
 
     override fun refreshContacts(refreshTabsMask: Int) {
         if (isDestroyed || isFinishing || isGettingContacts) {
@@ -645,21 +619,4 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun checkWhatsNewDialog() {
-        arrayListOf<Release>().apply {
-            add(Release(10, R.string.release_10))
-            add(Release(11, R.string.release_11))
-            add(Release(16, R.string.release_16))
-            add(Release(27, R.string.release_27))
-            add(Release(29, R.string.release_29))
-            add(Release(31, R.string.release_31))
-            add(Release(32, R.string.release_32))
-            add(Release(34, R.string.release_34))
-            add(Release(39, R.string.release_39))
-            add(Release(40, R.string.release_40))
-            add(Release(47, R.string.release_47))
-            add(Release(56, R.string.release_56))
-            checkWhatsNew(this, BuildConfig.VERSION_CODE)
-        }
-    }
 }

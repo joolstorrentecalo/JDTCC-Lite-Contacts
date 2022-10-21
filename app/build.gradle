@@ -13,11 +13,11 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.simplemobiletools.contacts.pro"
-        minSdkVersion 21
+        applicationId "com.jtcstudios.contacts"
+        minSdkVersion 29
         targetSdkVersion 33
-        versionCode 98
-        versionName "6.21.1"
+        versionCode 1
+        versionName "1.0.0"
         setProperty("archivesBaseName", "contacts")
     }
 
